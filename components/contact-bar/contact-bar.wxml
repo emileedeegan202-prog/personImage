@@ -1,0 +1,13 @@
+<view class="contact-bar card">
+  <text wx:if="{{title}}" class="contact-bar__title">{{title}}</text>
+  <view wx:if="{{contact.wechat}}" class="contact-bar__row">
+    <text class="contact-bar__label">微信</text>
+    <text class="contact-bar__value">{{contact.wechat}}</text>
+    <button class="link-btn contact-bar__action" plain="true" hover-class="none" bindtap="onCopyWechat">复制</button>
+  </view>
+  <view wx:if="{{contact.phone}}" class="contact-bar__row">
+    <text class="contact-bar__label">电话</text>
+    <text class="contact-bar__value">{{contact.phone}}</text>
+    <button class="link-btn contact-bar__action" plain="true" hover-class="none" bindtap="onCopyPhone">复制</button>
+  </view>
+</view>

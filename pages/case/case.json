@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "案例详情"
+  "navigationBarTitleText": "案例详情",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "image-preview": "/components/image-preview/image-preview"
+  }
 }

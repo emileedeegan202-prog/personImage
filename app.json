@@ -2,15 +2,14 @@
   "pages": [
     "pages/index/index",
     "pages/case/case",
-    "pages/webview/webview",
-    "pages/video/video"
+    "pages/webview/webview"
   ],
   "window": {
-    "navigationBarTitleText": "资料集",
-    "navigationBarBackgroundColor": "#f3efe8",
+    "navigationBarTitleText": "顾涔潇 | 室内设计师",
+    "navigationBarBackgroundColor": "#fafafa",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#f3efe8",
-    "backgroundTextStyle": "light"
+    "backgroundColor": "#fafafa",
+    "backgroundTextStyle": "dark"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

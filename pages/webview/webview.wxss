@@ -1,21 +1,23 @@
 .fallback {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 40rpx 32rpx;
-  background: #f3efe8;
+  background: var(--bg);
 }
 
 .fallback__title {
   display: block;
-  font-size: 34rpx;
-  line-height: 1.3;
-  font-weight: 700;
-  color: #1b1714;
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 12rpx;
 }
 
 .fallback__desc {
   display: block;
-  margin-top: 12rpx;
-  font-size: 26rpx;
-  line-height: 1.7;
-  color: #5f564d;
+  font-size: var(--font-sm);
+  color: var(--gray-500);
 }

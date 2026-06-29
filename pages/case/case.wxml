@@ -1,129 +1,113 @@
 <view class="page">
-  <view class="shell" wx:if="{{caseItem}}">
-    <view class="detail-hero card">
-      <view class="detail-hero__visual {{caseItem.toneClass}}" data-src="{{caseItem.coverImage}}" bindtap="previewImage">
-        <image wx:if="{{caseItem.coverImage}}" class="detail-hero__image" src="{{caseItem.coverImage}}" mode="aspectFill" />
-        <text class="detail-hero__badge">{{caseItem.type}}</text>
-        <text class="detail-hero__title">{{caseItem.title}}</text>
-        <text class="detail-hero__meta">{{caseItem.area}} · {{caseItem.stage}}</text>
-      </view>
-
-      <view class="detail-hero__body">
-        <text class="detail-hero__summary">{{caseItem.summary}}</text>
-        <view class="detail-hero__tags">
-          <view class="chip">{{profile.role}}</view>
-          <view class="chip">{{profile.city}}</view>
-        </view>
-      </view>
+  <view class="container" wx:if="{{caseItem}}">
+    <!-- 返回按钮 -->
+    <view class="back-btn" bindtap="goBack">
+      <text class="back-btn__arrow">←</text>
+      <text class="back-btn__text">返回</text>
     </view>
 
-    <view class="section">
-      <view class="section__head">
-        <text class="section__kicker">案例拆解</text>
-        <text class="section__title">把项目关键动作讲清楚</text>
-      </view>
+    <!-- 项目头部 -->
+    <header class="case-header">
+      <view class="case-header__badge">{{caseItem.type}}</view>
+      <h1 class="case-header__title">{{caseItem.title}}</h1>
+      <text class="case-header__meta">{{caseItem.area}}</text>
+    </header>
 
-      <view class="detail-grid">
-        <view class="detail-block card">
-          <text class="detail-block__label">问题</text>
-          <text class="detail-block__text">{{caseItem.challenge}}</text>
-        </view>
-        <view class="detail-block card">
-          <text class="detail-block__label">动作</text>
-          <text class="detail-block__text">{{caseItem.move}}</text>
-        </view>
-        <view class="detail-block card">
-          <text class="detail-block__label">结果</text>
-          <text class="detail-block__text">{{caseItem.result}}</text>
-        </view>
-      </view>
+    <!-- 封面图 -->
+    <view class="case-cover" data-src="{{caseItem.coverImage}}" bindtap="previewImage">
+      <image class="case-cover__image" src="{{caseItem.coverImage}}" mode="aspectFill" />
     </view>
 
-    <view class="section">
-      <view class="section__head">
-        <text class="section__kicker">图片</text>
-        <text class="section__title">点击图片可前后翻看</text>
-      </view>
+    <!-- 项目概述 -->
+    <section class="case-section">
+      <text class="case-section__label">OVERVIEW</text>
+      <text class="case-section__content">{{caseItem.summary}}</text>
+    </section>
 
-      <view class="gallery">
-        <view wx:for="{{caseItem.gallery}}" wx:key="label" class="gallery-item card {{caseItem.toneClass}}" data-src="{{item.src}}" bindtap="previewImage">
-          <image wx:if="{{item.src}}" class="gallery-item__image" src="{{item.src}}" mode="aspectFill" />
-          <text class="gallery-item__label">{{item.label}}</text>
-          <text class="gallery-item__note">{{item.note}}</text>
+    <!-- 案例拆解 -->
+    <section class="case-section">
+      <text class="case-section__label">ANALYSIS</text>
+      <text class="case-section__title">案例拆解</text>
+
+      <view class="analysis-grid">
+        <view class="analysis-item">
+          <text class="analysis-item__label">问题</text>
+          <text class="analysis-item__text">{{caseItem.challenge}}</text>
+        </view>
+        <view class="analysis-item">
+          <text class="analysis-item__label">策略</text>
+          <text class="analysis-item__text">{{caseItem.move}}</text>
+        </view>
+        <view class="analysis-item">
+          <text class="analysis-item__label">成果</text>
+          <text class="analysis-item__text">{{caseItem.result}}</text>
         </view>
       </view>
-    </view>
+    </section>
 
-    <view class="section">
-      <view class="section__head">
-        <text class="section__kicker">视频</text>
-        <text class="section__title">{{caseItem.title}} 对应视频</text>
-      </view>
+    <!-- 图片画廊 - 瀑布流 -->
+    <section class="case-section">
+      <text class="case-section__label">GALLERY</text>
+      <text class="case-section__title">空间实拍</text>
 
-      <view wx:if="{{caseItem.videoFile}}" class="video-inline card">
-        <video
-          class="video-inline__player"
-          src="{{caseItem.videoFile}}"
-          controls
-          show-center-play-btn="true"
-          show-play-btn="true"
-          enable-progress-gesture="true"
-          objectFit="contain"
-        ></video>
-        <view class="video-inline__body">
-          <text class="video-inline__title">{{caseItem.videoTitle}}</text>
-          <text class="video-inline__note">{{caseItem.videoNote}}</text>
+      <view class="gallery-waterfall">
+        <view class="gallery-waterfall__col">
+          <view
+            wx:for="{{caseItem.gallery}}"
+            wx:key="src"
+            wx:if="{{index % 2 === 0}}"
+            class="gallery-item"
+            data-src="{{item.src}}"
+            bindtap="previewImage"
+          >
+            <image class="gallery-item__image" src="{{item.src}}" mode="widthFix" lazy-load />
+          </view>
         </view>
-      </view>
-    </view>
-
-    <view class="section">
-      <view class="section__head">
-        <text class="section__kicker">效果图</text>
-        <text class="section__title">外部链接</text>
-      </view>
-
-      <view class="link-grid">
-        <view wx:for="{{kujialeLinks}}" wx:key="title" class="link-card card">
-          <text class="link-card__title">{{item.title}}</text>
-          <text class="link-card__url">{{item.url}}</text>
-          <text class="link-card__note">{{item.note}}</text>
-          <view class="link-card__actions">
-            <button class="link-btn" plain="true" hover-class="none" data-src="{{item.url}}" bindtap="copyLink">复制链接</button>
-            <button class="secondary-btn link-card__open" plain="true" hover-class="none" data-src="{{item.url}}" bindtap="openLink">打开预览</button>
+        <view class="gallery-waterfall__col">
+          <view
+            wx:for="{{caseItem.gallery}}"
+            wx:key="src"
+            wx:if="{{index % 2 === 1}}"
+            class="gallery-item"
+            data-src="{{item.src}}"
+            bindtap="previewImage"
+          >
+            <image class="gallery-item__image" src="{{item.src}}" mode="widthFix" lazy-load />
           </view>
         </view>
       </view>
-    </view>
+    </section>
 
-    <view class="section">
-      <view class="contact-cta card">
-        <text class="contact-cta__title">觉得合适，可以直接联系</text>
-        <view wx:if="{{contact.wechat}}" class="contact-cta__row">
-          <text class="contact-cta__label">微信</text>
-          <text class="contact-cta__value">{{contact.wechat}}</text>
-          <button class="link-btn contact-cta__action" plain="true" hover-class="none" data-value="{{contact.wechat}}" bindtap="copyText">复制</button>
+    <!-- VR 全景 -->
+    <section wx:if="{{links.length > 0}}" class="case-section">
+      <text class="case-section__label">3D VIEW</text>
+      <text class="case-section__title">VR 全景</text>
+
+      <view wx:for="{{links}}" wx:key="title" class="link-banner card" data-url="{{item.url}}" bindtap="openLink">
+        <view class="link-banner__content">
+          <text class="link-banner__title">{{item.title}}</text>
+          <text class="link-banner__action">点击预览 →</text>
         </view>
       </view>
-    </view>
+    </section>
 
-    <view wx:if="{{previewOpen}}" class="image-preview" bindtap="closePreview">
-      <view class="image-preview__stage" catchtap="stopPreviewTap">
-        <swiper
-          class="image-preview__swiper"
-          current="{{previewIndex}}"
-          circular="true"
-          bindchange="onPreviewChange"
-        >
-          <swiper-item wx:for="{{previewImages}}" wx:key="*this" class="image-preview__item">
-            <image class="image-preview__image" src="{{item}}" mode="aspectFit" />
-          </swiper-item>
-        </swiper>
-        <view class="image-preview__top">
-          <text class="image-preview__count">{{previewIndex + 1}} / {{previewImages.length}}</text>
-          <button class="image-preview__close" plain="true" hover-class="none" bindtap="closePreview">关闭</button>
+    <!-- 联系 -->
+    <section class="case-section">
+      <text class="case-section__label">CONTACT</text>
+      <text class="case-section__title">联系设计师</text>
+
+      <view class="contact-card card">
+        <view class="contact-card__row" bindtap="copyWechat">
+          <view class="contact-card__info">
+            <text class="contact-card__label">微信</text>
+            <text class="contact-card__value">{{contact.wechat}}</text>
+          </view>
+          <text class="contact-card__action">复制</text>
         </view>
       </view>
-    </view>
+    </section>
+
+    <!-- 图片预览组件 -->
+    <image-preview images="{{previewImages}}" current="{{previewIndex}}" visible="{{previewOpen}}" bind:close="closePreview" bind:change="onPreviewChange" />
   </view>
 </view>
