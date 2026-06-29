@@ -1,0 +1,31 @@
+.video-page__head {
+  margin-bottom: 20rpx;
+}
+
+.video-player {
+  width: 100%;
+  height: 420rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-empty {
+  padding: 24rpx;
+}
+
+.video-empty__title {
+  display: block;
+  font-size: 30rpx;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #1b1714;
+}
+
+.video-empty__desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: #5f564d;
+}

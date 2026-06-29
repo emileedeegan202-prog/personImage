@@ -1,0 +1,108 @@
+page {
+  background: #f3efe8;
+  color: #1b1714;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+button::after {
+  border: none;
+}
+
+.page {
+  min-height: 100vh;
+  background: #f3efe8;
+}
+
+.shell {
+  padding: 24rpx 24rpx 72rpx;
+}
+
+.section {
+  margin-top: 44rpx;
+}
+
+.section__head {
+  margin-bottom: 20rpx;
+}
+
+.section__kicker {
+  display: block;
+  font-size: 20rpx;
+  line-height: 1.4;
+  letter-spacing: 2rpx;
+  color: #8a6246;
+}
+
+.section__title {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 40rpx;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #1b1714;
+}
+
+.section__desc {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: #635b52;
+}
+
+.card {
+  background: #fbf7f1;
+  border: 1rpx solid #ddd3c7;
+  border-radius: 18rpx;
+  overflow: hidden;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+  padding: 8rpx 14rpx;
+  border-radius: 999rpx;
+  background: #efe6da;
+  color: #4f463d;
+  font-size: 22rpx;
+  line-height: 1;
+}
+
+.rule {
+  height: 1rpx;
+  background: #e5dbcf;
+}
+
+.primary-btn,
+.secondary-btn,
+.ghost-btn,
+.link-btn {
+  padding: 0;
+  border-radius: 14rpx;
+  font-size: 26rpx;
+  line-height: 1;
+}
+
+.primary-btn {
+  background: #1b1714;
+  color: #f7f2ea;
+}
+
+.secondary-btn {
+  background: #e9ddd0;
+  color: #1b1714;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: #8a6246;
+  border: 1rpx solid #d8ccbf;
+}
+
+.link-btn {
+  background: transparent;
+  color: #8a6246;
+}

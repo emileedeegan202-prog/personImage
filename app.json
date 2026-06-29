@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/case/case",
+    "pages/webview/webview",
+    "pages/video/video"
+  ],
+  "window": {
+    "navigationBarTitleText": "资料集",
+    "navigationBarBackgroundColor": "#f3efe8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3efe8",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

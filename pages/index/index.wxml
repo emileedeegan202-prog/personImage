@@ -1,0 +1,221 @@
+<view class="page">
+  <view class="shell">
+    <view class="topbar">
+      <view class="topbar__brand">
+        <text class="topbar__name">资料集</text>
+        <text class="topbar__sub">微信小程序预览版</text>
+      </view>
+      <button class="ghost-btn topbar__share" plain="true" open-type="share">分享</button>
+    </view>
+
+    <view class="nav-pills">
+      <button
+        wx:for="{{sections}}"
+        wx:key="id"
+        class="nav-pill"
+        plain="true"
+        hover-class="none"
+        data-target="{{item.id}}"
+        bindtap="scrollToSection"
+      >
+        {{item.label}}
+      </button>
+    </view>
+
+    <view class="hero card">
+      <view class="hero__copy">
+        <text class="section__kicker">室内 / 空间设计师</text>
+        <text class="hero__title">{{profile.name}}</text>
+        <text class="hero__role">{{profile.tagline}}</text>
+        <text class="hero__desc">{{profile.summary}}</text>
+
+        <view class="hero__actions">
+          <button class="primary-btn hero__btn" plain="true" hover-class="none" data-target="cases" bindtap="scrollToSection">看案例</button>
+          <button class="secondary-btn hero__btn" plain="true" hover-class="none" data-target="contact" bindtap="scrollToSection">联系我</button>
+        </view>
+
+        <view class="hero__chips">
+          <view wx:for="{{strengths}}" wx:key="*this" class="chip">{{item}}</view>
+        </view>
+      </view>
+
+      <view class="hero__visual">
+        <view class="showcase showcase--hero">
+          <image
+            wx:if="{{featuredCase.coverImage}}"
+            class="showcase__image"
+            src="{{featuredCase.coverImage}}"
+            mode="aspectFill"
+          />
+          <view class="showcase__frame">
+            <text class="showcase__label">代表作预览</text>
+            <text class="showcase__title">{{featuredCase.title}}</text>
+            <text class="showcase__meta">留白 / 结构 / 落地</text>
+          </view>
+        </view>
+
+        <view class="hero__stats">
+          <view wx:for="{{stats}}" wx:key="label" class="stat">
+            <text class="stat__value">{{item.value}}</text>
+            <text class="stat__label">{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="about" class="section">
+      <view class="section__head">
+        <text class="section__kicker">简介</text>
+        <text class="section__title">先把你是谁说清楚</text>
+        <text class="section__desc">这里把身份、方法和合作方式说透，让客户快速判断你是不是适合他这个项目。</text>
+      </view>
+
+      <view class="card about-card">
+        <view class="about-card__row">
+          <text class="about-card__label">定位</text>
+          <text class="about-card__value">{{profile.role}}</text>
+        </view>
+        <view class="rule"></view>
+        <view class="about-card__row">
+          <text class="about-card__label">城市</text>
+          <text class="about-card__value">{{profile.city}}</text>
+        </view>
+        <view class="rule"></view>
+        <view class="about-card__row about-card__row--stack">
+          <text class="about-card__label">说明</text>
+          <text class="about-card__value about-card__value--long">我把空间方案、视觉表达和落地沟通放在一起处理，重点解决“好不好看、能不能落地、值不值得做”这三个问题。</text>
+        </view>
+      </view>
+    </view>
+
+    <view id="cases" class="section">
+      <view class="section__head">
+        <text class="section__kicker">案例</text>
+        <text class="section__title">精选项目优先展示真实图像和关键动作</text>
+        <text class="section__desc">每个案例都保留项目类型、核心动作和结果说明，方便客户快速判断你的风格和能力。</text>
+      </view>
+
+      <view wx:for="{{cases}}" wx:key="id" class="case-card card">
+        <view class="case-card__visual {{item.toneClass}}">
+          <image
+            wx:if="{{item.coverImage}}"
+            class="case-card__image"
+            src="{{item.coverImage}}"
+            mode="aspectFill"
+          />
+          <text class="case-card__badge">{{item.type}}</text>
+          <text class="case-card__visual-title">{{item.coverTitle}}</text>
+          <text class="case-card__visual-subtitle">{{item.coverSubtitle}}</text>
+        </view>
+
+        <view class="case-card__body">
+          <text class="case-card__title">{{item.title}}</text>
+          <text class="case-card__meta">{{item.area}} · {{item.stage}}</text>
+          <text class="case-card__summary">{{item.summary}}</text>
+          <view class="case-card__points">
+            <view class="case-point">
+              <text class="case-point__label">问题</text>
+              <text class="case-point__text">{{item.challenge}}</text>
+            </view>
+            <view class="case-point">
+              <text class="case-point__label">动作</text>
+              <text class="case-point__text">{{item.move}}</text>
+            </view>
+            <view class="case-point">
+              <text class="case-point__label">结果</text>
+              <text class="case-point__text">{{item.result}}</text>
+            </view>
+          </view>
+          <view class="case-card__footer">
+            <button class="link-btn" plain="true" hover-class="none" data-id="{{item.id}}" bindtap="openCase">查看详情</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="links" class="section">
+      <view class="section__head">
+        <text class="section__kicker">效果图</text>
+        <text class="section__title">效果图链接可直接放这里</text>
+        <text class="section__desc">先放分享链接本身；如果后面域名和业务都配好了，就可以直接在小程序里预览。</text>
+      </view>
+
+      <view class="link-grid">
+        <view wx:for="{{kujialeLinks}}" wx:key="title" class="link-card card">
+          <text class="link-card__title">{{item.title}}</text>
+          <text class="link-card__url">{{item.url}}</text>
+          <text class="link-card__note">{{item.note}}</text>
+          <view class="link-card__actions">
+            <button class="link-btn" plain="true" hover-class="none" data-src="{{item.url}}" bindtap="copyLink">复制链接</button>
+            <button class="secondary-btn link-card__open" plain="true" hover-class="none" data-src="{{item.url}}" bindtap="openLink">打开预览</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="videos" class="section">
+      <view class="section__head">
+        <text class="section__kicker">视频</text>
+        <text class="section__title">视频素材作为补充展示</text>
+        <text class="section__desc">先放视频入口和说明，点击后直接在视频页播放本地文件。</text>
+      </view>
+
+      <view class="video-grid">
+        <view wx:for="{{videos}}" wx:key="title" class="video-card card">
+          <image wx:if="{{item.coverImage}}" class="video-card__image" src="{{item.coverImage}}" mode="aspectFill" />
+          <view class="video-card__body">
+            <text class="video-card__title">{{item.title}}</text>
+            <text class="video-card__note">{{item.note}}</text>
+            <view class="video-card__actions">
+              <button class="link-btn" plain="true" hover-class="none" data-file="{{item.file}}" data-title="{{item.title}}" bindtap="openVideo">打开视频</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="services" class="section">
+      <view class="section__head">
+        <text class="section__kicker">服务</text>
+        <text class="section__title">把你能提供的服务说得短一点、准一点</text>
+      </view>
+
+      <view class="grid">
+        <view wx:for="{{services}}" wx:key="title" class="grid-card card">
+          <text class="grid-card__title">{{item.title}}</text>
+          <text class="grid-card__desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view id="process" class="section">
+      <view class="section__head">
+        <text class="section__kicker">流程</text>
+        <text class="section__title">合作流程用四步说清楚</text>
+      </view>
+
+      <view class="process-list">
+        <view wx:for="{{process}}" wx:key="step" class="process-item card">
+          <text class="process-item__step">{{item.step}}</text>
+          <text class="process-item__title">{{item.title}}</text>
+          <text class="process-item__desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view id="contact" class="section">
+      <view class="section__head">
+        <text class="section__kicker">联系</text>
+        <text class="section__title">让客户能立刻找到你</text>
+      </view>
+
+      <view class="contact-card card">
+        <view wx:if="{{contact.wechat}}" class="contact-row">
+          <text class="contact-row__label">微信</text>
+          <text class="contact-row__value">{{contact.wechat}}</text>
+          <button class="link-btn contact-row__action" plain="true" hover-class="none" data-value="{{contact.wechat}}" bindtap="copyText">复制</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

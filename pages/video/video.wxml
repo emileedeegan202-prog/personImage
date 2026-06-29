@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="shell video-page">
+    <view class="video-page__head">
+      <text class="section__kicker">视频</text>
+      <text class="section__title">{{title}}</text>
+      <text class="section__desc">这里先按本地 mp4 播放，后面如果你要接外链，也可以再改。</text>
+    </view>
+
+    <video
+      wx:if="{{file}}"
+      class="video-player"
+      src="{{file}}"
+      controls
+      show-center-play-btn="true"
+      show-play-btn="true"
+      enable-progress-gesture="true"
+      objectFit="contain"
+      binderror="onVideoError"
+    ></video>
+
+    <view wx:else class="video-empty card">
+      <text class="video-empty__title">没有可播放的视频</text>
+      <text class="video-empty__desc">请先在首页传入本地视频路径。</text>
+    </view>
+  </view>
+</view>
