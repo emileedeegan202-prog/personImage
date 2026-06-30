@@ -1,73 +1,63 @@
 <view class="page">
   <view class="container" wx:if="{{caseItem}}">
-    <!-- 返回按钮 -->
-    <view class="back-btn" bindtap="goBack">
-      <text class="back-btn__arrow">←</text>
-      <text class="back-btn__text">返回</text>
+    <view class="case-top">
+      <view class="back-btn" bindtap="goBack">
+        <text class="back-btn__arrow">←</text>
+        <text class="back-btn__text">返回</text>
+      </view>
+      <text class="case-top__mark">{{profile.name}}</text>
     </view>
 
-    <!-- 项目头部 -->
-    <header class="case-header">
-      <view class="case-header__badge">{{caseItem.type}}</view>
-      <h1 class="case-header__title">{{caseItem.title}}</h1>
-      <text class="case-header__meta">{{caseItem.area}}</text>
-    </header>
+    <view class="case-header">
+      <text class="case-header__eyebrow">PROJECT / {{caseItem.location}}</text>
+      <text class="case-header__title">{{caseItem.title}}</text>
+      <view class="case-header__meta">
+        <text>{{caseItem.type}}</text>
+        <text>{{caseItem.area}}</text>
+      </view>
+    </view>
 
-    <!-- 封面图 -->
     <view class="case-cover" data-src="{{caseItem.coverImage}}" bindtap="previewImage">
       <image class="case-cover__image" src="{{caseItem.coverImage}}" mode="aspectFill" />
+      <view class="case-cover__hint">
+        <text>点击查看大图</text>
+      </view>
     </view>
 
-    <!-- 项目概述 -->
-    <section class="case-section">
+    <view class="case-section">
       <text class="case-section__label">OVERVIEW</text>
-      <text class="case-section__content">{{caseItem.summary}}</text>
-    </section>
+      <text class="case-section__lead">{{caseItem.summary}}</text>
+    </view>
 
-    <!-- 案例拆解 -->
-    <section class="case-section">
-      <text class="case-section__label">ANALYSIS</text>
+    <view class="case-section">
+      <text class="case-section__label">DESIGN NOTES</text>
       <text class="case-section__title">案例拆解</text>
 
       <view class="analysis-grid">
         <view class="analysis-item">
-          <text class="analysis-item__label">问题</text>
+          <text class="analysis-item__label">需求</text>
           <text class="analysis-item__text">{{caseItem.challenge}}</text>
         </view>
         <view class="analysis-item">
           <text class="analysis-item__label">策略</text>
           <text class="analysis-item__text">{{caseItem.move}}</text>
         </view>
-        <view class="analysis-item">
-          <text class="analysis-item__label">成果</text>
+        <view class="analysis-item analysis-item--dark">
+          <text class="analysis-item__label">结果</text>
           <text class="analysis-item__text">{{caseItem.result}}</text>
         </view>
       </view>
-    </section>
+    </view>
 
-    <!-- 图片画廊 - 瀑布流 -->
-    <section class="case-section">
+    <view class="case-section">
       <text class="case-section__label">GALLERY</text>
-      <text class="case-section__title">空间实拍</text>
+      <text class="case-section__title">空间图集</text>
 
       <view class="gallery-waterfall">
-        <view class="gallery-waterfall__col">
+        <view class="gallery-waterfall__col" wx:for="{{galleryColumns}}" wx:for-item="column" wx:key="id">
           <view
-            wx:for="{{caseItem.gallery}}"
+            wx:for="{{column.items}}"
             wx:key="src"
-            wx:if="{{index % 2 === 0}}"
-            class="gallery-item"
-            data-src="{{item.src}}"
-            bindtap="previewImage"
-          >
-            <image class="gallery-item__image" src="{{item.src}}" mode="widthFix" lazy-load />
-          </view>
-        </view>
-        <view class="gallery-waterfall__col">
-          <view
-            wx:for="{{caseItem.gallery}}"
-            wx:key="src"
-            wx:if="{{index % 2 === 1}}"
             class="gallery-item"
             data-src="{{item.src}}"
             bindtap="previewImage"
@@ -76,38 +66,24 @@
           </view>
         </view>
       </view>
-    </section>
+    </view>
 
-    <!-- VR 全景 -->
-    <section wx:if="{{links.length > 0}}" class="case-section">
-      <text class="case-section__label">3D VIEW</text>
-      <text class="case-section__title">VR 全景</text>
+    <view wx:if="{{caseItem.links.length > 0}}" class="case-section">
+      <text class="case-section__label">VR VIEW</text>
+      <text class="case-section__title">全景预览</text>
+      <link-card
+        wx:for="{{caseItem.links}}"
+        wx:key="url"
+        title="{{item.title}}"
+        url="{{item.url}}"
+        note="{{item.note}}"
+      />
+    </view>
 
-      <view wx:for="{{links}}" wx:key="title" class="link-banner card" data-url="{{item.url}}" bindtap="openLink">
-        <view class="link-banner__content">
-          <text class="link-banner__title">{{item.title}}</text>
-          <text class="link-banner__action">点击预览 →</text>
-        </view>
-      </view>
-    </section>
-
-    <!-- 联系 -->
-    <section class="case-section">
+    <view class="case-section">
       <text class="case-section__label">CONTACT</text>
-      <text class="case-section__title">联系设计师</text>
-
-      <view class="contact-card card">
-        <view class="contact-card__row" bindtap="copyWechat">
-          <view class="contact-card__info">
-            <text class="contact-card__label">微信</text>
-            <text class="contact-card__value">{{contact.wechat}}</text>
-          </view>
-          <text class="contact-card__action">复制</text>
-        </view>
-      </view>
-    </section>
-
-    <!-- 图片预览组件 -->
-    <image-preview images="{{previewImages}}" current="{{previewIndex}}" visible="{{previewOpen}}" bind:close="closePreview" bind:change="onPreviewChange" />
+      <text class="case-section__title">预约沟通</text>
+      <contact-bar contact="{{contact}}" title="喜欢这个项目的尺度和质感？可以从这里开始聊。" />
+    </view>
   </view>
 </view>

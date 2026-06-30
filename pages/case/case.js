@@ -1,61 +1,47 @@
 const portfolio = require("../../utils/portfolio");
-const { getCaseById } = require("../../utils/util");
+const { getCaseById, splitColumns, uniqueImages } = require("../../utils/util");
 
 Page({
   data: {
     profile: portfolio.profile,
     contact: portfolio.contact,
     caseItem: null,
-    links: portfolio.links,
+    galleryColumns: [[], []],
     previewImages: [],
-    previewOpen: false,
-    previewIndex: 0,
   },
 
   onLoad(options) {
     const caseItem = getCaseById(portfolio.cases, options.id);
-    if (!caseItem) return;
+    if (!caseItem) {
+      wx.showToast({ title: "项目不存在", icon: "none" });
+      return;
+    }
 
-    const previewImages = [caseItem.coverImage]
-      .concat(caseItem.gallery.map((g) => g.src))
-      .filter(Boolean);
+    const gallery = caseItem.gallery || [];
+    const previewImages = uniqueImages([caseItem.coverImage].concat(gallery.map((item) => item.src)));
 
-    this.setData({ caseItem, previewImages });
+    this.setData({
+      caseItem,
+      galleryColumns: splitColumns(gallery),
+      previewImages,
+    });
+
     wx.setNavigationBarTitle({ title: caseItem.title });
   },
 
   goBack() {
-    wx.navigateBack();
+    if (getCurrentPages().length > 1) {
+      wx.navigateBack();
+      return;
+    }
+    wx.redirectTo({ url: "/pages/index/index" });
   },
 
   previewImage(e) {
     const current = e.currentTarget.dataset.src;
     const urls = this.data.previewImages;
-    if (!urls.length) return;
+    if (!current || !urls.length) return;
 
-    wx.previewImage({
-      current,
-      urls,
-    });
-  },
-
-  closePreview() {
-    this.setData({ previewOpen: false });
-  },
-
-  onPreviewChange(e) {
-    this.setData({ previewIndex: e.detail.current || 0 });
-  },
-
-  openLink(e) {
-    const url = e.currentTarget.dataset.url;
-    wx.navigateTo({ url: `/pages/webview/webview?src=${encodeURIComponent(url)}` });
-  },
-
-  copyWechat() {
-    wx.setClipboardData({
-      data: this.data.contact.wechat,
-      success: () => wx.showToast({ title: "已复制微信号", icon: "success" }),
-    });
+    wx.previewImage({ current, urls });
   },
 });

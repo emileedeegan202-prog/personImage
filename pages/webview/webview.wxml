@@ -1,5 +1,5 @@
 <web-view wx:if="{{src}}" src="{{src}}"></web-view>
 <view wx:else class="fallback">
-  <text class="fallback__title">没有可预览的链接</text>
-  <text class="fallback__desc">请先在页面里填入酷家乐分享链接。</text>
+  <text class="fallback__title">{{message}}</text>
+  <text class="fallback__desc">请返回作品页面，重新选择有效的 VR 全景链接。</text>
 </view>

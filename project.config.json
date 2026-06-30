@@ -1,8 +1,8 @@
 {
-  "description": "我的简历微信小程序",
+  "description": "室内设计师作品集小程序",
   "miniprogramRoot": "./",
   "compileType": "miniprogram",
-  "projectname": "我的简历",
+  "projectname": "personImage",
   "setting": {
     "es6": true,
     "minified": true,
@@ -33,7 +33,20 @@
   "libVersion": "2.31.0",
   "simulatorPluginLibVersion": {},
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "file",
+        "value": "assets/midcentury/case-01.jpg"
+      },
+      {
+        "type": "file",
+        "value": "assets/midcentury/case-02.jpg"
+      },
+      {
+        "type": "file",
+        "value": "assets/midcentury/case-03.jpg"
+      }
+    ],
     "include": []
   },
   "editorSetting": {}

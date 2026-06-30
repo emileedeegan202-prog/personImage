@@ -1,7 +1,12 @@
 <view class="page">
-  <!-- 顶部导航 -->
-  <view class="nav-bar">
-    <view class="nav-bar__logo">G</view>
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar__brand">
+      <text class="nav-bar__mark">GC</text>
+      <view class="nav-bar__name">
+        <text class="nav-bar__title">{{profile.name}}</text>
+        <text class="nav-bar__sub">Interior</text>
+      </view>
+    </view>
     <scroll-view class="nav-bar__tabs" scroll-x enable-flex>
       <view
         wx:for="{{navItems}}"
@@ -9,141 +14,138 @@
         class="nav-tab {{activeNav === item.id ? 'nav-tab--active' : ''}}"
         data-id="{{item.id}}"
         bindtap="scrollTo"
-      >{{item.label}}</view>
+      >
+        {{item.label}}
+      </view>
     </scroll-view>
-    <button class="nav-bar__share" open-type="share" plain="true">分享</button>
+    <button class="nav-bar__share" open-type="share" plain="true" hover-class="none">分享</button>
   </view>
 
   <view class="container">
-    <!-- Hero 区域 -->
-    <section id="hero" class="hero">
-      <view class="hero__badge">INTERIOR DESIGNER</view>
-      <h1 class="hero__name">{{profile.name}}</h1>
-      <p class="hero__tagline">{{profile.tagline}}</p>
-      <p class="hero__summary">{{profile.summary}}</p>
+    <view id="hero" class="hero">
+      <view class="hero__copy">
+        <text class="hero__eyebrow">INTERIOR PORTFOLIO</text>
+        <text class="hero__name">{{profile.name}}</text>
+        <text class="hero__role">{{profile.role}} · {{profile.city}}</text>
+        <text class="hero__tagline">{{profile.tagline}}</text>
+      </view>
+
+      <view class="hero__image-wrap">
+        <image class="hero__image" src="{{profile.heroImage}}" mode="aspectFill" />
+        <view class="hero__plate">
+          <text class="hero__plate-num">01</text>
+          <text class="hero__plate-text">住宅空间 / 方案深化 / 落地配合</text>
+        </view>
+      </view>
+
+      <view class="hero__summary-row">
+        <text class="hero__summary">{{profile.summary}}</text>
+        <view class="hero__actions">
+          <button class="btn btn--primary" data-id="works" bindtap="scrollTo">浏览作品</button>
+          <button class="btn btn--outline" data-id="contact" bindtap="scrollTo">联系设计师</button>
+        </view>
+      </view>
+
       <view class="hero__tags">
         <text wx:for="{{strengths}}" wx:key="*this" class="tag">{{item}}</text>
       </view>
-      <view class="hero__actions">
-        <button class="btn btn--primary" data-id="works" bindtap="scrollTo">浏览作品</button>
-        <button class="btn btn--outline" data-id="contact" bindtap="scrollTo">联系我</button>
-      </view>
-    </section>
+    </view>
 
-    <!-- 作品瀑布流 -->
-    <section id="works" class="section">
+    <view id="works" class="section">
       <view class="section__header">
-        <text class="section__label">SELECTED WORKS</text>
-        <text class="section__title">精选作品</text>
+        <view>
+          <text class="section__eyebrow">SELECTED WORKS</text>
+          <text class="section__title">精选作品</text>
+        </view>
+        <text class="section__desc">{{cases.length}} 个项目</text>
       </view>
 
       <view class="waterfall">
-        <view class="waterfall__col waterfall__col--left">
+        <view class="waterfall__col" wx:for="{{caseColumns}}" wx:for-item="column" wx:key="id">
           <view
-            wx:for="{{cases}}"
+            wx:for="{{column.items}}"
             wx:key="id"
-            wx:if="{{index % 2 === 0}}"
-            class="work-card card"
+            class="work-card"
             data-id="{{item.id}}"
             bindtap="openCase"
           >
-            <image class="work-card__image" src="{{item.coverImage}}" mode="widthFix" lazy-load />
+            <image class="work-card__image" src="{{item.coverImage}}" mode="aspectFill" lazy-load />
             <view class="work-card__info">
               <text class="work-card__title">{{item.title}}</text>
-              <text class="work-card__meta">{{item.type}} · {{item.area}}</text>
-            </view>
-          </view>
-        </view>
-        <view class="waterfall__col waterfall__col--right">
-          <view
-            wx:for="{{cases}}"
-            wx:key="id"
-            wx:if="{{index % 2 === 1}}"
-            class="work-card card"
-            data-id="{{item.id}}"
-            bindtap="openCase"
-          >
-            <image class="work-card__image" src="{{item.coverImage}}" mode="widthFix" lazy-load />
-            <view class="work-card__info">
-              <text class="work-card__title">{{item.title}}</text>
-              <text class="work-card__meta">{{item.type}} · {{item.area}}</text>
+              <text class="work-card__meta">{{item.location}} · {{item.type}} · {{item.area}}</text>
+              <text class="work-card__summary">{{item.summary}}</text>
             </view>
           </view>
         </view>
       </view>
-    </section>
+    </view>
 
-    <!-- 服务 -->
-    <section id="services" class="section">
+    <view id="services" class="section">
       <view class="section__header">
-        <text class="section__label">SERVICES</text>
-        <text class="section__title">服务内容</text>
+        <view>
+          <text class="section__eyebrow">SERVICES</text>
+          <text class="section__title">服务内容</text>
+        </view>
       </view>
 
       <view class="service-grid">
         <view wx:for="{{services}}" wx:key="title" class="service-item">
-          <text class="service-item__icon">{{item.icon}}</text>
+          <text class="service-item__index">{{item.icon}}</text>
           <text class="service-item__title">{{item.title}}</text>
           <text class="service-item__desc">{{item.desc}}</text>
         </view>
       </view>
-    </section>
+    </view>
 
-    <!-- 流程 -->
-    <section id="process" class="section">
+    <view id="process" class="section">
       <view class="section__header">
-        <text class="section__label">PROCESS</text>
-        <text class="section__title">合作流程</text>
+        <view>
+          <text class="section__eyebrow">PROCESS</text>
+          <text class="section__title">合作流程</text>
+        </view>
       </view>
 
-      <view class="process-timeline">
+      <view class="process-list">
         <view wx:for="{{process}}" wx:key="step" class="process-step">
-          <view class="process-step__dot"></view>
-          <view class="process-step__line" wx:if="{{index < process.length - 1}}"></view>
-          <view class="process-step__content">
-            <text class="process-step__step">{{item.step}}</text>
+          <text class="process-step__num">{{item.step}}</text>
+          <view class="process-step__body">
             <text class="process-step__title">{{item.title}}</text>
             <text class="process-step__desc">{{item.desc}}</text>
           </view>
         </view>
       </view>
-    </section>
+    </view>
 
-    <!-- 效果图链接 -->
-    <section wx:if="{{links.length > 0}}" class="section">
+    <view wx:if="{{links.length > 0}}" class="section">
       <view class="section__header">
-        <text class="section__label">3D VIEW</text>
-        <text class="section__title">VR 全景</text>
-      </view>
-
-      <view wx:for="{{links}}" wx:key="title" class="link-banner card" data-url="{{item.url}}" bindtap="openLink">
-        <view class="link-banner__content">
-          <text class="link-banner__title">{{item.title}}</text>
-          <text class="link-banner__action">点击预览 →</text>
+        <view>
+          <text class="section__eyebrow">VR VIEW</text>
+          <text class="section__title">全景预览</text>
         </view>
       </view>
-    </section>
 
-    <!-- 联系 -->
-    <section id="contact" class="section">
+      <link-card
+        wx:for="{{links}}"
+        wx:key="url"
+        title="{{item.title}}"
+        url="{{item.url}}"
+        note="{{item.note}}"
+      />
+    </view>
+
+    <view id="contact" class="section">
       <view class="section__header">
-        <text class="section__label">CONTACT</text>
-        <text class="section__title">联系我</text>
-      </view>
-
-      <view class="contact-card card">
-        <view class="contact-card__row" bindtap="copyWechat">
-          <view class="contact-card__info">
-            <text class="contact-card__label">微信</text>
-            <text class="contact-card__value">{{contact.wechat}}</text>
-          </view>
-          <text class="contact-card__action">复制</text>
+        <view>
+          <text class="section__eyebrow">CONTACT</text>
+          <text class="section__title">联系设计师</text>
         </view>
       </view>
+
+      <contact-bar contact="{{contact}}" title="添加微信，预约空间方案沟通" />
 
       <view class="footer">
         <text class="footer__text">© {{profile.name}} · {{profile.role}}</text>
       </view>
-    </section>
+    </view>
   </view>
 </view>

@@ -1,45 +1,53 @@
 .contact-bar {
-  padding: 0 24rpx;
+  overflow: hidden;
+  border: 1rpx solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
 }
 
 .contact-bar__title {
   display: block;
-  padding: 22rpx 0 0;
+  padding: 28rpx 28rpx 4rpx;
+  color: var(--ink);
   font-size: 30rpx;
-  line-height: 1.4;
-  font-weight: 700;
-  color: #1b1714;
+  font-weight: 900;
+  line-height: 1.45;
 }
 
 .contact-bar__row {
   display: flex;
   align-items: center;
-  gap: 16rpx;
-  padding: 22rpx 0;
+  gap: 18rpx;
+  padding: 28rpx;
 }
 
 .contact-bar__row + .contact-bar__row {
-  border-top: 1rpx solid #e5dbcf;
+  border-top: 1rpx solid var(--line);
+}
+
+.contact-bar__main {
+  flex: 1;
+  min-width: 0;
 }
 
 .contact-bar__label {
-  flex: 0 0 auto;
-  width: 72rpx;
-  font-size: 24rpx;
-  color: #8a6246;
+  display: block;
+  margin-bottom: 6rpx;
+  color: var(--brass);
+  font-size: 22rpx;
+  font-weight: 800;
 }
 
 .contact-bar__value {
-  flex: 1;
-  font-size: 26rpx;
-  line-height: 1.5;
-  color: #1b1714;
+  display: block;
+  color: var(--ink);
+  font-size: 29rpx;
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: break-all;
 }
 
 .contact-bar__action {
   flex: 0 0 auto;
-  margin: 0;
-  padding: 0 12rpx;
-  height: 48rpx;
-  line-height: 48rpx;
 }

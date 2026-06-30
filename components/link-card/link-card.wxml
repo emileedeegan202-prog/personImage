@@ -1,9 +1,12 @@
-<view class="link-card card">
-  <text class="link-card__title">{{title}}</text>
+<view class="link-card">
+  <view class="link-card__head">
+    <text class="link-card__kicker">VR</text>
+    <text class="link-card__title">{{title}}</text>
+  </view>
+  <text wx:if="{{note}}" class="link-card__note">{{note}}</text>
   <text class="link-card__url">{{url}}</text>
-  <text class="link-card__note">{{note}}</text>
   <view class="link-card__actions">
-    <button class="link-btn" plain="true" hover-class="none" bindtap="onCopyLink">复制链接</button>
-    <button class="secondary-btn link-card__open" plain="true" hover-class="none" bindtap="onOpenLink">打开预览</button>
+    <button class="secondary-btn" plain="true" hover-class="none" bindtap="onCopyLink">复制链接</button>
+    <button class="link-btn link-card__open" plain="true" hover-class="none" bindtap="onOpenLink">打开预览</button>
   </view>
 </view>

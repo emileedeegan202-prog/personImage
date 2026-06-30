@@ -1,4 +1,7 @@
 const portfolio = require("../../utils/portfolio");
+const { splitColumns } = require("../../utils/util");
+
+const app = getApp();
 
 Page({
   data: {
@@ -8,7 +11,9 @@ Page({
     process: portfolio.process,
     contact: portfolio.contact,
     cases: portfolio.cases,
+    caseColumns: splitColumns(portfolio.cases),
     links: portfolio.links,
+    statusBarHeight: app.globalData.statusBarHeight || 0,
     navItems: [
       { id: "hero", label: "首页" },
       { id: "works", label: "作品" },
@@ -19,43 +24,39 @@ Page({
     activeNav: "hero",
   },
 
+  onLoad() {
+    wx.setNavigationBarTitle({
+      title: `${portfolio.profile.name} | 室内设计师`,
+    });
+  },
+
   onShareAppMessage() {
     return {
       title: `${this.data.profile.name} | ${this.data.profile.role}`,
       path: "/pages/index/index",
+      imageUrl: this.data.profile.heroImage,
     };
   },
 
   onShareTimeline() {
     return {
       title: `${this.data.profile.name} | ${this.data.profile.role}`,
+      imageUrl: this.data.profile.heroImage,
     };
   },
 
   scrollTo(e) {
     const id = e.currentTarget.dataset.id;
     this.setData({ activeNav: id });
-    wx.pageScrollTo({ selector: `#${id}`, duration: 300 });
+    wx.pageScrollTo({
+      selector: `#${id}`,
+      offsetTop: -72,
+      duration: 320,
+    });
   },
 
   openCase(e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/case/case?id=${id}` });
-  },
-
-  openLink(e) {
-    const url = e.currentTarget.dataset.url;
-    wx.navigateTo({ url: `/pages/webview/webview?src=${encodeURIComponent(url)}` });
-  },
-
-  copyWechat() {
-    wx.setClipboardData({
-      data: this.data.contact.wechat,
-      success: () => wx.showToast({ title: "已复制微信号", icon: "success" }),
-    });
-  },
-
-  onPageScroll(e) {
-    // 可选：根据滚动位置高亮导航
   },
 });

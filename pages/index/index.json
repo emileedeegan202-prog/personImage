@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "顾涔潇 | 室内设计师",
   "navigationStyle": "custom",
-  "usingComponents": {}
+  "usingComponents": {
+    "contact-bar": "/components/contact-bar/contact-bar",
+    "link-card": "/components/link-card/link-card"
+  }
 }
